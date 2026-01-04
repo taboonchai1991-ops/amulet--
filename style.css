@@ -5,14 +5,20 @@
   --button-text: #000;
   --link-color: #ffcc00;
 }
+
+/* =======================
+   BASE
+======================= */
 body {
   margin: 0;
   font-family: 'Kanit', sans-serif;
   color: var(--text-color);
-  background: url('https://upload.wikimedia.org/wikipedia/commons/c/ce/Ayutthaya_3_pagodas.jpg') no-repeat center center fixed;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/c/ce/Ayutthaya_3_pagodas.jpg')
+              no-repeat center center fixed;
   background-size: cover;
   transition: background 0.5s, color 0.5s;
 }
+
 body.light {
   --bg-color: rgba(255,255,255,0.7);
   --text-color: #000;
@@ -20,35 +26,35 @@ body.light {
   --button-text: #ffcc00;
   --link-color: #000;
 }
+
+/* =======================
+   LAYOUT
+======================= */
 .container {
   padding: 50px 20px;
   background-color: var(--bg-color);
   min-height: 100vh;
 }
-h1, h2 { text-align: center; }
-h1 { font-size: 3em; margin-bottom: 40px; }
-h2 { margin: 40px 0 20px; }
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 20px;
-}
-.card {
-  background-color: rgba(255,255,255,0.1);
-  padding: 20px;
-  border-radius: 15px;
+
+h1, h2 {
   text-align: center;
-  transition: 0.3s;
 }
-.card:hover { background-color: rgba(255,255,255,0.2); }
-.card a {
-  color: var(--link-color);
-  font-weight: 600;
-  text-decoration: none;
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 30px;
 }
+
+h2 {
+  margin: 40px 0 20px;
+}
+
+/* =======================
+   BUTTONS
+======================= */
 a.button {
   display: inline-block;
-  margin: 20px;
+  margin: 15px;
   padding: 15px 30px;
   background-color: var(--button-bg);
   color: var(--button-text);
@@ -57,7 +63,13 @@ a.button {
   border-radius: 10px;
   transition: 0.3s;
 }
-a.button:hover { opacity: 0.8; }
+
+a.button:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+/* Toggle Dark / Light */
 .toggle-btn {
   position: fixed;
   top: 20px;
@@ -70,5 +82,83 @@ a.button:hover { opacity: 0.8; }
   cursor: pointer;
   font-weight: 600;
   transition: 0.3s;
+  z-index: 1000;
 }
-.toggle-btn:hover { opacity: 0.8; }
+
+.toggle-btn:hover {
+  opacity: 0.8;
+}
+
+/* =======================
+   VOICE CONTROL
+======================= */
+
+/* ปุ่มไมโครโฟน */
+.mic-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  padding: 10px 14px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.mic-btn:hover {
+  opacity: 0.85;
+  transform: scale(1.08);
+}
+
+/* กล่องแสดงข้อความที่ได้ยิน */
+.voice-box {
+  max-width: 600px;
+  margin: 20px auto 40px;
+  padding: 15px 20px;
+  background: rgba(0,0,0,0.35);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.1em;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: 0.3s;
+}
+
+/* Light mode สำหรับ voice box */
+body.light .voice-box {
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* =======================
+   GALLERY
+======================= */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: rgba(255,255,255,0.12);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.card:hover {
+  background-color: rgba(255,255,255,0.22);
+  transform: translateY(-4px);
+}
+
+.card a {
+  color: var(--link-color);
+  font-weight: 600;
+  text-decoration: none;
+}
