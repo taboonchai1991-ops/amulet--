@@ -4,14 +4,67 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>พระลึกลับแดนสยาม</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  font-family: 'Kanit', sans-serif;
+  background: #111;
+  color: #fff;
+  margin: 0;
+}
+body.light {
+  background: #f5f5f5;
+  color: #000;
+}
+.container {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+.button {
+  display: block;
+  margin: 10px 0;
+  padding: 12px;
+  background: #7b1fa2;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+}
+.toggle-btn, .mic-btn {
+  position: fixed;
+  top: 10px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 10px;
+}
+.toggle-btn { right: 10px; }
+.mic-btn { left: 10px; font-size: 20px; }
+
+.voice-box {
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  font-size: 16px;
+}
+</style>
 </head>
+
 <body>
+
 <button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
+<button class="mic-btn" onclick="startVoice()">🎤</button>
+
 <div class="container">
   <h1>พระลึกลับแดนสยาม</h1>
-  <p>เลือกชมอัลบั้มพระเครื่องเพือ่การศึกษาและให้ความรู้</p>
+  <p>เลือกชมอัลบั้มพระเครื่องเพื่อการศึกษาและให้ความรู้</p>
+
+  <div id="voiceText" class="voice-box">🎧 รอฟังคำสั่งเสียง...</div>
+
   <a href="google.html" class="button">พระชุดที่1</a>
   <a href="mega.html" class="button">พระเกจิยอดนิยม</a>
   <a href="icedrive.html" class="button">พระชุดที่3</a>
@@ -21,8 +74,78 @@
   <a href="icedrive7.html" class="button">พระชุดที่7</a>
   <a href="icedrive8.html" class="button">พระชุดที่8</a>
 </div>
+
 <script>
-function toggleMode() { document.body.classList.toggle('light'); }
+function toggleMode() {
+  document.body.classList.toggle('light');
+}
+
+// ฐานข้อมูล AI (คำพ้อง + คำธรรมชาติ)
+const aiDB = [
+  { words: ["หนึ่ง","1","แรก"], url:"google.html", speak:"พระชุดที่หนึ่ง" },
+  { words: ["เกจิ","อาจารย์","ดัง"], url:"mega.html", speak:"พระเกจิยอดนิยม" },
+  { words: ["สาม","3"], url:"icedrive.html", speak:"พระชุดที่สาม" },
+  { words: ["เก่า","โบราณ","โบราณกาล"], url:"icedrive4.html", speak:"พระเก่าโบราณกาล" },
+  { words: ["ห้า","5"], url:"icedrive5.html", speak:"พระชุดที่ห้า" },
+  { words: ["หก","6"], url:"icedrive6.html", speak:"พระชุดที่หก" },
+  { words: ["เจ็ด","7"], url:"icedrive7.html", speak:"พระชุดที่เจ็ด" },
+  { words: ["แปด","8"], url:"icedrive8.html", speak:"พระชุดที่แปด" }
+];
+
+// พูดตอบ
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance(text);
+  msg.lang = "th-TH";
+  speechSynthesis.speak(msg);
+}
+
+// AI วิเคราะห์คำใกล้เคียง
+function aiMatch(text) {
+  text = text.toLowerCase();
+  let best = null;
+  let scoreMax = 0;
+
+  aiDB.forEach(item => {
+    let score = 0;
+    item.words.forEach(w => {
+      if (text.includes(w)) score++;
+    });
+    if (score > scoreMax) {
+      scoreMax = score;
+      best = item;
+    }
+  });
+
+  return scoreMax > 0 ? best : null;
+}
+
+// เริ่มฟังเสียง
+function startVoice() {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("เบราว์เซอร์ไม่รองรับคำสั่งเสียง");
+    return;
+  }
+
+  const rec = new webkitSpeechRecognition();
+  rec.lang = "th-TH";
+  rec.start();
+
+  document.getElementById("voiceText").innerHTML = "🎙️ กำลังฟัง...";
+
+  rec.onresult = e => {
+    const text = e.results[0][0].transcript;
+    document.getElementById("voiceText").innerHTML = "🗣️ ได้ยินว่า: <b>" + text + "</b>";
+
+    const result = aiMatch(text);
+
+    if (result) {
+      speak("กำลังเปิด " + result.speak);
+      setTimeout(()=>location.href = result.url,1200);
+    } else {
+      speak("เจ้านายผมยังไม่ได้เขียนโค้ดครับ");
+    }
+  };
+}
 </script>
 </body>
 </html>
