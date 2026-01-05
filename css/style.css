@@ -1,14 +1,12 @@
 :root {
   --bg-color: rgba(0,0,0,0.5);
-  --text-color: #fff;
+  --text-color: #ffffff;
   --button-bg: #ffcc00;
-  --button-text: #000;
+  --button-text: #000000;
   --link-color: #ffcc00;
 }
 
-/* =======================
-   BASE
-======================= */
+/* ------------------ BODY ------------------ */
 body {
   margin: 0;
   font-family: 'Kanit', sans-serif;
@@ -16,60 +14,84 @@ body {
   background: url('https://upload.wikimedia.org/wikipedia/commons/c/ce/Ayutthaya_3_pagodas.jpg')
               no-repeat center center fixed;
   background-size: cover;
-  transition: background 0.5s, color 0.5s;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
+/* ------------------ LIGHT MODE ------------------ */
 body.light {
   --bg-color: rgba(255,255,255,0.7);
-  --text-color: #000;
-  --button-bg: #000;
+  --text-color: #000000;
+  --button-bg: #000000;
   --button-text: #ffcc00;
-  --link-color: #000;
+  --link-color: #000000;
 }
 
-/* =======================
-   LAYOUT
-======================= */
+/* ------------------ CONTAINER ------------------ */
 .container {
   padding: 50px 20px;
   background-color: var(--bg-color);
   min-height: 100vh;
 }
 
+/* ------------------ HEADINGS ------------------ */
 h1, h2 {
   text-align: center;
 }
 
 h1 {
   font-size: 3em;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 h2 {
   margin: 40px 0 20px;
 }
 
-/* =======================
-   BUTTONS
-======================= */
+/* ------------------ GALLERY ------------------ */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* ------------------ CARD ------------------ */
+.card {
+  background-color: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  background-color: rgba(255,255,255,0.2);
+  transform: translateY(-3px);
+}
+
+.card a {
+  color: var(--link-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ------------------ BUTTON ------------------ */
 a.button {
   display: inline-block;
-  margin: 15px;
+  margin: 20px;
   padding: 15px 30px;
   background-color: var(--button-bg);
   color: var(--button-text);
   text-decoration: none;
   font-weight: 600;
   border-radius: 10px;
-  transition: 0.3s;
+  transition: opacity 0.3s ease;
 }
 
 a.button:hover {
   opacity: 0.85;
-  transform: translateY(-2px);
 }
 
-/* Toggle Dark / Light */
+/* ------------------ TOGGLE BUTTON ------------------ */
 .toggle-btn {
   position: fixed;
   top: 20px;
@@ -81,84 +103,23 @@ a.button:hover {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: 0.3s;
-  z-index: 1000;
+  transition: opacity 0.3s ease;
 }
 
 .toggle-btn:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-/* =======================
-   VOICE CONTROL
-======================= */
-
-/* ปุ่มไมโครโฟน */
-.mic-btn {
-  position: fixed;
-  top: 20px;
-  left: 20px;
+/* ------------------ VOICE BUTTON (เสริม) ------------------ */
+.voice-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
   background: var(--button-bg);
   color: var(--button-text);
-  padding: 10px 14px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  transition: 0.3s;
-  z-index: 1000;
-}
-
-.mic-btn:hover {
-  opacity: 0.85;
-  transform: scale(1.08);
-}
-
-/* กล่องแสดงข้อความที่ได้ยิน */
-.voice-box {
-  max-width: 600px;
-  margin: 20px auto 40px;
-  padding: 15px 20px;
-  background: rgba(0,0,0,0.35);
-  border-radius: 12px;
-  text-align: center;
-  font-size: 1.1em;
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.25);
-  transition: 0.3s;
-}
-
-/* Light mode สำหรับ voice box */
-body.light .voice-box {
-  background: rgba(255,255,255,0.75);
-  border: 1px solid rgba(0,0,0,0.2);
-}
-
-/* =======================
-   GALLERY
-======================= */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
-}
-
-.card {
-  background-color: rgba(255,255,255,0.12);
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  transition: 0.3s;
-}
-
-.card:hover {
-  background-color: rgba(255,255,255,0.22);
-  transform: translateY(-4px);
-}
-
-.card a {
-  color: var(--link-color);
+  font-size: 18px;
   font-weight: 600;
-  text-decoration: none;
+  cursor: pointer;
 }
