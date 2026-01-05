@@ -7,79 +7,46 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-
-<style>
-body{
-  font-family:'Kanit',sans-serif;
-  background:#0f0f0f;
-  color:#fff;
-}
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-  text-align:center;
-}
-h1{ margin-bottom:5px; }
-p{ color:#ccc; }
-
-.menu a{
-  display:block;
-  background:#1e1e1e;
-  color:#00eaff;
-  padding:14px;
-  margin:10px 0;
-  border-radius:10px;
-  text-decoration:none;
-  font-size:18px;
-}
-.menu a:hover{
-  background:#00eaff;
-  color:#000;
-}
-
-.voice-btn{
-  margin:20px 0;
-  padding:12px 20px;
-  border:none;
-  border-radius:30px;
-  background:#00eaff;
-  color:#000;
-  font-size:18px;
-  cursor:pointer;
-}
-</style>
 </head>
 
 <body>
 
+<button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
+
 <div class="container">
+
   <h1>พระลึกลับแดนสยาม</h1>
-  <p>ค้นหาพระเครื่องด้วยเสียง เพื่อการศึกษา</p>
+  <p style="text-align:center;">
+    ค้นหาพระเครื่องเพื่อการศึกษาและความรู้
+  </p>
 
-  <!-- ปุ่มสั่งงานเสียง -->
-  <button class="voice-btn" onclick="startVoice()">🎤 ค้นหาพระด้วยเสียง</button>
+  <!-- 🔍 ช่องค้นหาพระทั้งหมด -->
+  <input
+    type="text"
+    class="search-input"
+    placeholder="🔍 พิมพ์ชื่อพระ เช่น หลวงปู่, พระกรุ, อยุธยา..."
+    onkeyup="globalSearch()"
+  >
 
-  <!-- เมนูหลัก -->
-  <div class="menu">
-    <a href="google.html">📷 รูปพระ (Google Photos)</a>
-    <a href="icedrive.html">☁️ รูปพระ (Icedrive ชุดที่ 1)</a>
-    <a href="icedrive4.html">☁️ รูปพระ (Icedrive ชุดที่ 4)</a>
-    <a href="mega.html">⭐ พระเกจิยอดนิยม</a>
+  <!-- 📌 แสดงผลค้นหา -->
+  <div id="searchResult" class="gallery"></div>
+
+  <hr style="margin:50px 0; opacity:0.3;">
+
+  <!-- 🔗 ปุ่มเข้าอัลบั้ม -->
+  <div style="text-align:center;">
+    <a href="google.html" class="button">📷 อัลบั้ม Google</a>
+    <a href="icedrive.html" class="button">☁ IceDrive</a>
+    <a href="icedrive4.html" class="button">🏺 พระโบราณ</a>
+    <a href="mega.html" class="button">💾 MEGA</a>
   </div>
 
-  <!-- (เลือกได้) card สำหรับค้นหาด้วยเสียงในหน้า index -->
-  <div style="margin-top:30px;text-align:left">
-    <div class="card">
-      <a href="mega.html">พระเกจิ</a>
-    </div>
-    <div class="card">
-      <a href="google.html">พระเครื่องกรุงเทพมหานคร</a>
-    </div>
-  </div>
 </div>
 
-<!-- โหลดระบบคำสั่งเสียง -->
+<!-- 📦 ฐานข้อมูลพระ -->
+<script src="js/amulet-data.js"></script>
+
+<!-- 🎤 เสียง + ค้นหา -->
 <script src="js/voice.js"></script>
 
 </body>
