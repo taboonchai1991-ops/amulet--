@@ -4,41 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>พระลึกลับแดนสยาม</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
-<button class="mic-btn" onclick="startAI()">🎤</button>
+<button class="voice-btn" onclick="startVoice()">🎤 ค้นหาพระด้วยเสียง</button>
 
 <div class="container">
   <h1>พระลึกลับแดนสยาม</h1>
-  <p>เลือกชมอัลบั้มพระเพื่อการศึกษา</p>
+  <p>เลือกชมอัลบั้มพระเครื่องเพื่อการศึกษาและให้ความรู้</p>
 
-  <div class="voice-box" id="voiceBox">
-    🎧 AI พร้อมรับคำสั่งเสียง
-  </div>
-
-  <div class="gallery">
-    <div class="card">พระรอดมหาวัน</div>
-    <div class="card">พระเปิมลำพูน</div>
-    <div class="card">หลวงพ่อเนียม พระปิดตา</div>
-    <div class="card">หลวงพ่อเนียม เศียรแหลม</div>
-    <div class="card">หลวงปู่ฝั้น อาจาโร</div>
-  </div>
+  <a href="google.html" class="button">รูปพระชุดที่1</a>
+  <a href="mega.html" class="button">พระเกจิยอดนิยม</a>
+  <a href="icedrive.html" class="button">รูปพระชุดที่3</a>
 </div>
-
-<script src="js/ai-db.js"></script>
-<script src="js/ai-engine.js"></script>
-<script src="js/voice.js"></script>
-<script src="js/app.js"></script>
 
 <script>
 function toggleMode() {
-  document.body.classList.toggle("light");
+  document.body.classList.toggle('light');
+}
+
+/* ------------------ รายชื่อพระ ------------------ */
+const amuletList = {
+  "พระชุดที่หนึ่ง": "google.html",
+  "พระเกจิ": "mega.html",
+  "พระชุดที่สาม": "icedrive.html"
+};
+
+/* ------------------ เริ่มฟังเสียง ------------------ */
+function startVoice() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.lang = "th-TH";
+  recognition.start();
+
+  recognition.onresult = function(event) {
+    const text = event.results[0][0].transcript.trim();
+    console.log("ได้ยินว่า:", text);
+
+    let found = false;
+
+    for (let key in amuletList) {
+      if (text.includes(key)) {
+        window.location.href = amuletList[key];
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      speak("เจ้านายครับ ยังไม่มีรายชื่อพระครับเจ้านาย");
+    }
+  };
+}
+
+/* ------------------ พูดตอบกลับ ------------------ */
+function speak(message) {
+  const speech = new SpeechSynthesisUtterance(message);
+  speech.lang = "th-TH";
+  speech.pitch = 1;
+  speech.rate = 0.95;
+  window.speechSynthesis.speak(speech);
 }
 </script>
 
