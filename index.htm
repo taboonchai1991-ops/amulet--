@@ -4,71 +4,83 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>พระลึกลับแดนสยาม</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-<button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
-<button class="voice-btn" onclick="startVoice()">🎤 ค้นหาพระด้วยเสียง</button>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+body{
+  font-family:'Kanit',sans-serif;
+  background:#0f0f0f;
+  color:#fff;
+}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+  text-align:center;
+}
+h1{ margin-bottom:5px; }
+p{ color:#ccc; }
+
+.menu a{
+  display:block;
+  background:#1e1e1e;
+  color:#00eaff;
+  padding:14px;
+  margin:10px 0;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:18px;
+}
+.menu a:hover{
+  background:#00eaff;
+  color:#000;
+}
+
+.voice-btn{
+  margin:20px 0;
+  padding:12px 20px;
+  border:none;
+  border-radius:30px;
+  background:#00eaff;
+  color:#000;
+  font-size:18px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
 
 <div class="container">
   <h1>พระลึกลับแดนสยาม</h1>
-  <p>เลือกชมอัลบั้มพระเครื่องเพื่อการศึกษาและให้ความรู้</p>
+  <p>ค้นหาพระเครื่องด้วยเสียง เพื่อการศึกษา</p>
 
-  <a href="google.html" class="button">รูปพระชุดที่1</a>
-  <a href="mega.html" class="button">พระเกจิยอดนิยม</a>
-  <a href="icedrive.html" class="button">รูปพระชุดที่3</a>
+  <!-- ปุ่มสั่งงานเสียง -->
+  <button class="voice-btn" onclick="startVoice()">🎤 ค้นหาพระด้วยเสียง</button>
+
+  <!-- เมนูหลัก -->
+  <div class="menu">
+    <a href="google.html">📷 รูปพระ (Google Photos)</a>
+    <a href="icedrive.html">☁️ รูปพระ (Icedrive ชุดที่ 1)</a>
+    <a href="icedrive4.html">☁️ รูปพระ (Icedrive ชุดที่ 4)</a>
+    <a href="mega.html">⭐ พระเกจิยอดนิยม</a>
+  </div>
+
+  <!-- (เลือกได้) card สำหรับค้นหาด้วยเสียงในหน้า index -->
+  <div style="margin-top:30px;text-align:left">
+    <div class="card">
+      <a href="mega.html">พระเกจิ</a>
+    </div>
+    <div class="card">
+      <a href="google.html">พระเครื่องกรุงเทพมหานคร</a>
+    </div>
+  </div>
 </div>
 
-<script>
-function toggleMode() {
-  document.body.classList.toggle('light');
-}
-
-/* ------------------ รายชื่อพระ ------------------ */
-const amuletList = {
-  "พระชุดที่หนึ่ง": "google.html",
-  "พระเกจิ": "mega.html",
-  "พระชุดที่สาม": "icedrive.html"
-};
-
-/* ------------------ เริ่มฟังเสียง ------------------ */
-function startVoice() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
-  recognition.lang = "th-TH";
-  recognition.start();
-
-  recognition.onresult = function(event) {
-    const text = event.results[0][0].transcript.trim();
-    console.log("ได้ยินว่า:", text);
-
-    let found = false;
-
-    for (let key in amuletList) {
-      if (text.includes(key)) {
-        window.location.href = amuletList[key];
-        found = true;
-        break;
-      }
-    }
-
-    if (!found) {
-      speak("เจ้านายครับ ยังไม่มีรายชื่อพระครับเจ้านาย");
-    }
-  };
-}
-
-/* ------------------ พูดตอบกลับ ------------------ */
-function speak(message) {
-  const speech = new SpeechSynthesisUtterance(message);
-  speech.lang = "th-TH";
-  speech.pitch = 1;
-  speech.rate = 0.95;
-  window.speechSynthesis.speak(speech);
-}
-</script>
+<!-- โหลดระบบคำสั่งเสียง -->
+<script src="js/voice.js"></script>
 
 </body>
 </html>
