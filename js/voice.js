@@ -1,11 +1,14 @@
 /* =================================================
    VOICE SEARCH SYSTEM : พระลึกลับแดนสยาม
-   ใช้ร่วมกันทุกหน้า
+   FILE : voice.js
+   ใช้ร่วมกับ amulet-data.js
 ================================================= */
 
+/* 🎤 เริ่มระบบสั่งงานด้วยเสียง */
 function startVoice() {
 
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
 
   if (!SpeechRecognition) {
     alert("เบราว์เซอร์นี้ไม่รองรับคำสั่งเสียง");
@@ -18,41 +21,55 @@ function startVoice() {
   recognition.maxAlternatives = 1;
 
   recognition.start();
+  speak("เจ้านายครับ โปรดออกคำสั่งได้เลยครับ");
 
   recognition.onresult = function (event) {
-    const speechText = event.results[0][0].transcript.trim();
+    let speechText = event.results[0][0].transcript.trim();
     console.log("🎤 ได้ยิน:", speechText);
 
-    const links = document.querySelectorAll(".card a");
+    // ตัดคำสั่งนำหน้า
+    speechText = speechText
+      .replace("ค้นหา", "")
+      .replace("เปิด", "")
+      .replace("ดู", "")
+      .replace("พระ", "พระ")
+      .trim();
+
     let found = false;
 
-    links.forEach(link => {
-      const name = link.textContent.trim();
+    for (const amulet of amulets) {
+      const match =
+        speechText.includes(amulet.name) ||
+        (amulet.keywords &&
+          amulet.keywords.some(keyword =>
+            speechText.includes(keyword)
+          ));
 
-      // ค้นหาด้วยการ match บางส่วน
-      if (speechText.includes(name) || name.includes(speechText)) {
-        speak(`เปิด ${name} ให้แล้วครับเจ้านาย`);
-        window.open(link.href, "_blank");
+      if (match) {
+        speak(`เปิด ${amulet.name} ให้แล้วครับเจ้านาย`);
+        window.open(amulet.url, "_blank");
         found = true;
+        break;
       }
-    });
+    }
 
     if (!found) {
-      speak("เจ้านายครับ ยังไม่มีรายชื่อพระครับเจ้านาย");
+      speak("เจ้านายครับ ยังไม่พบพระในระบบครับ");
     }
   };
 
   recognition.onerror = function () {
-    speak("ขออภัยครับเจ้านาย ระบบไม่สามารถรับคำสั่งเสียงได้");
+    speak("ขออภัยครับเจ้านาย ระบบรับคำสั่งเสียงขัดข้อง");
   };
 }
 
-/* ================== SPEAK BACK ================== */
+/* 🔊 ระบบพูดตอบกลับ */
 function speak(message) {
   const speech = new SpeechSynthesisUtterance(message);
   speech.lang = "th-TH";
   speech.rate = 0.95;
   speech.pitch = 1;
-  window.speechSynthesis.cancel(); // หยุดเสียงเดิมก่อน
+
+  window.speechSynthesis.cancel();
   window.speechSynthesis.speak(speech);
 }
