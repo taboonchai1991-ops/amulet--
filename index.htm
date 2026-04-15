@@ -2,528 +2,153 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>📚 พระลึกลับแดนสยาม - ค้นหาพระเครื่อง</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📚พระลึกลับแดนสยาม📚</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s;
-  }
-
-  body {
-    font-family: 'Kanit', sans-serif;
-    background: linear-gradient(145deg, #1e2a2e 0%, #0f1a1f 100%);
-    color: #f3e9c0;
-    min-height: 100vh;
-    padding: 20px;
-  }
-
-  /* โหมดสว่าง */
-  body.light {
-    background: #fef7e0;
-    background: linear-gradient(135deg, #fff4e4, #faeec2);
-    color: #3e2a1f;
-  }
-
-  body.light .container {
-    background: rgba(255, 250, 235, 0.95);
-    box-shadow: 0 20px 35px rgba(100, 70, 20, 0.2);
-    border: 1px solid #ffdfa5;
-  }
-
-  body.light .card {
-    background: #fff6e8;
-    border: 1px solid #f0cf9c;
-    color: #4a2c1a;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  }
-
-  body.light .card a {
-    color: #b64926;
-  }
-
-  body.light .search-input,
-  body.light .voice-btn {
-    background: #fffaf2;
-    color: #3e2a1f;
-    border: 1px solid #e2bc7c;
-  }
-
-  body.light .toggle-btn {
-    background: #ffd966;
-    color: #4a2c1a;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  body.light .button {
-    background: #e7c48b;
-    color: #3b2a1c;
-    border: 1px solid #cfaa6e;
-  }
-
-  body.light .ai-box {
-    background: #f5e5cc;
-    color: #5d3a1e;
-  }
-
-  .container {
-    max-width: 1300px;
-    margin: 0 auto;
-    background: rgba(30, 25, 20, 0.75);
-    backdrop-filter: blur(3px);
-    border-radius: 48px;
-    padding: 30px 25px 50px;
-    box-shadow: 0 25px 45px rgba(0,0,0,0.5);
-    border: 1px solid rgba(218, 165, 32, 0.4);
-  }
-
-  h1 {
-    font-size: 2.3rem;
-    text-align: center;
-    font-weight: 700;
-    background: linear-gradient(135deg, #ffd966, #ffb347);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    letter-spacing: 1px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  .hero-img {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0 5px;
-  }
-
-  .hot-banner {
-    max-width: 280px;
-    width: 90%;
-    border-radius: 60px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-    border: 2px solid #ffbf69;
-    transition: transform 0.2s;
-  }
-
-  .hot-banner:hover {
-    transform: scale(1.02);
-  }
-
-  .sub {
-    text-align: center;
-    opacity: 0.85;
-    margin: 10px 0 20px;
-    font-weight: 500;
-  }
-
-  .search-input {
-    width: 100%;
-    max-width: 550px;
-    padding: 15px 25px;
-    font-size: 1.1rem;
-    border-radius: 60px;
-    border: none;
-    background: #2c2b26;
-    color: #f7e5b5;
-    font-family: 'Kanit', sans-serif;
-    margin: 10px auto;
-    display: block;
-    outline: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    text-align: center;
-  }
-
-  .voice-btn {
-    background: #d4af37;
-    color: #2d2418;
-    font-weight: bold;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    margin: 0 auto 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-family: 'Kanit', sans-serif;
-    transition: all 0.2s;
-    box-shadow: 0 5px 0 #8b5a2b;
-  }
-
-  .voice-btn:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #8b5a2b;
-  }
-
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 28px;
-    margin: 35px 0 20px;
-  }
-
-  .card {
-    background: #2f2a24;
-    border-radius: 28px;
-    padding: 18px 15px 20px;
-    text-align: center;
-    transition: all 0.25s;
-    border: 1px solid #b68b40;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    backdrop-filter: blur(2px);
-  }
-
-  .card:hover {
-    transform: translateY(-8px);
-    border-color: #f3b33d;
-    box-shadow: 0 20px 30px rgba(0,0,0,0.4);
-  }
-
-  .card img {
-    width: 100%;
-    max-height: 190px;
-    object-fit: cover;
-    border-radius: 22px;
-    background: #e9d6a7;
-    margin-bottom: 14px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    border: 1px solid #e7bc7e;
-  }
-
-  .card a {
-    font-size: 1.25rem;
-    font-weight: 600;
-    text-decoration: none;
-    color: #ffcd94;
-    display: inline-block;
-    margin-top: 8px;
-    transition: 0.2s;
-    word-break: break-word;
-  }
-
-  .card a:hover {
-    color: #ffaa44;
-    text-decoration: underline;
-  }
-
-  .ai-box {
-    background: #2c241bc9;
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
-    padding: 15px 25px;
-    margin-top: 35px;
-    text-align: center;
-    font-size: 1rem;
-    border-left: 5px solid #f7b32b;
-    color: #ffe2b5;
-  }
-
-  .button {
-    display: inline-block;
-    background: #cf9f4a;
-    padding: 12px 22px;
-    margin: 8px 10px;
-    border-radius: 40px;
-    text-decoration: none;
-    color: #2c1c0c;
-    font-weight: 600;
-    transition: 0.2s;
-    border: 1px solid #ffda99;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-  }
-
-  .button:hover {
-    background: #ffb347;
-    transform: scale(1.02);
-    color: #2c1a06;
-  }
-
-  .toggle-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #46341e;
-    border: none;
-    font-size: 1.4rem;
-    padding: 10px 16px;
-    border-radius: 50px;
-    cursor: pointer;
-    z-index: 999;
-    font-weight: bold;
-    box-shadow: 0 3px 10px black;
-    transition: 0.2s;
-  }
-
-  hr {
-    margin: 45px 0 20px;
-    border-color: #dba44b;
-  }
-
-  footer {
-    text-align: center;
-    font-size: 0.8rem;
-    margin-top: 30px;
-    opacity: 0.6;
-  }
-
-  @media (max-width: 650px) {
-    .container {
-      padding: 20px 16px 35px;
-    }
-    h1 {
-      font-size: 1.7rem;
-    }
-    .gallery {
-      gap: 18px;
-    }
-  }
+.search-input{
+  width:100%;
+  max-width:500px;
+  padding:15px;
+  font-size:1.1em;
+  border-radius:10px;
+  border:none;
+  margin:20px auto;
+  display:block;
+}
+.voice-btn{
+  display:block;
+  margin:10px auto 30px;
+  padding:10px 20px;
+  border-radius:30px;
+  border:none;
+  font-size:1.1em;
+  cursor:pointer;
+}
+.card img{
+  width:100%;
+  max-height:180px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+.ai-box{
+  margin-top:40px;
+  text-align:center;
+  opacity:0.9;
+}
 </style>
 </head>
+
 <body>
 
-<button class="toggle-btn" onclick="toggleMode()" aria-label="สลับโหมดกลางวัน/กลางคืน">🌙 / ☀️</button>
+<button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
 
 <div class="container">
-  
-  <!-- 🖼 รูปภาพตามคำขอ "ใส่รูปภาพไว้ข้างหน้า" -->
-  <div class="hero-img">
-    <img class="hot-banner" src="https://od.lk/s/N18yODI4OTY4MzBf/Hot.png" alt="พระลึกลับแดนสยาม - พระเครื่องทรงพลัง" onerror="this.src='https://via.placeholder.com/280x120?text=พระเครื่อง+แดนสยาม'">
-  </div>
 
-  <h1>📚 พระลึกลับแดนสยาม 📚</h1>
-  <p class="sub">คลังข้อมูลพระเครื่องทุกยุคทุกสมัย • ใช้เพื่อการศึกษาค้นคว้า</p>
+<h1>พระลึกลับแดนสยาม</h1>
+<p style="text-align:center;">ค้นหาพระเครื่องจากทุกอัลบั้ม(ใช้ในดารดูและศึกษาพระเท่านั้น)</p>
 
-  <!-- 🔍 ค้นหา -->
-  <input type="text" class="search-input" id="searchInput" placeholder="🔊 พิมพ์หรือพูดชื่อพระ... (เช่น หลวงปู่ทวด, พระสมเด็จ, พระนางพญา)" onkeyup="globalSearch()">
+<!-- 🔍 ค้นหา -->
+<input
+  type="text"
+  class="search-input"
+  id="searchInput"
+  placeholder="🔍 พิมพ์หรือพูดชื่อพระ..."
+  onkeyup="globalSearch()"
+/>
 
-  <!-- 🎤 ปุ่มสั่งเสียง -->
-  <button class="voice-btn" onclick="startVoice()">🎙️ ค้นหาด้วยเสียง (ภาษาไทย)</button>
+<!-- 🎤 ปุ่มสั่งเสียง -->
+<button class="voice-btn" onclick="startVoice()">🎙️ ค้นหาด้วยเสียง</button>
 
-  <!-- ผลลัพธ์การค้นหา -->
-  <div id="searchResult" class="gallery"></div>
+<!-- 📌 ผลลัพธ์ -->
+<div id="searchResult" class="gallery"></div>
 
-  <!-- AI แนะนำเพิ่ม -->
-  <div id="aiSuggest" class="ai-box"></div>
+<!-- 🧠 AI แนะนำ -->
+<div id="aiSuggest" class="ai-box"></div>
 
-  <hr>
+<hr style="margin:50px 0; opacity:0.3;">
 
-  <!-- เมนูลิงก์อัลบั้มต่างๆ -->
-  <div style="text-align:center;">
-    <a href="#" class="button">📷 จังหวัดต่างๆ</a>
-    <a href="#" class="button">☁ พระเกจิเก่า</a>
-    <a href="#" class="button">🏺 พระโบราณ</a>
-    <a href="#" class="button">💾 พระเกจิยอดนิยม</a>
-  </div>
-  <footer>⚜️ ค้นหาและเรียนรู้มรดกวัฒนธรรมพระเครื่อง ⚜️</footer>
+<!-- 🔗 เมนู -->
+<div style="text-align:center;">
+  <a href="./google.html" class="button">📷 จังหวัดต่างๆ</a>
+  <a href="./icedrive.html" class="button">☁ พระเกจิเก่า</a>
+  <a href="./icedrive4.html" class="button">🏺 พระโบราณ</a>
+  <a href="./mega.html" class="button">💾 พระเกจิยอดนิยม</a>
 </div>
 
+</div>
+
+<script src="js/amulet-data.js"></script>
+
 <script>
-  // ---------- ข้อมูลพระเครื่องทั้งหมด (แทนไฟล์ amulet-data.js) ----------
-  // เพิ่มรายการพระเครื่องที่มีชื่อเสียง พร้อมรูปตัวอย่าง (ใช้รูป placeholder เพื่อความสวยงาม แต่ไม่บังคับ)
-  // แต่ละองค์ประกอบ: name, url (แหล่งอ้างอิง), img (ภาพตัวอย่าง)
-  const amulets = [
-    { name: "หลวงปู่ทวด วัดช้างให้", url: "https://th.wikipedia.org/wiki/หลวงปู่ทวด", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Luang_Pu_Tuat_statue%2C_Wat_Huai_Mongkol.jpg/220px-Luang_Pu_Tuat_statue%2C_Wat_Huai_Mongkol.jpg" },
-    { name: "พระสมเด็จ วัดระฆัง (หลวงพ่อโต)", url: "https://th.wikipedia.org/wiki/พระสมเด็จ", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Phra_Somdet_Wat_Rakhang.jpg/200px-Phra_Somdet_Wat_Rakhang.jpg" },
-    { name: "พระปิดตา หลวงปู่มั่ง", url: "https://example.com/pra-pidta", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Phra_Pidta.jpg/220px-Phra_Pidta.jpg" },
-    { name: "หลวงพ่อโสธร", url: "https://th.wikipedia.org/wiki/วัดโสธรวรารามวรวิหาร", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Wat_Sothornwararamworawihan_-_Phra_Phuttha_Sothon.jpg/250px-Wat_Sothornwararamworawihan_-_Phra_Phuttha_Sothon.jpg" },
-    { name: "พระนางพญา (กรุวัดนางพญา)", url: "https://th.wikipedia.org/wiki/พระนางพญา", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Phra_Nangphaya_amulets.jpg/250px-Phra_Nangphaya_amulets.jpg" },
-    { name: "พระผงสุพรรณ", url: "https://th.wikipedia.org/wiki/พระผงสุพรรณ", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Phra_Song_Khun_%27Somdej%27_Si_Therd_%28front%29.jpg/200px-Phra_Song_Khun_%27Somdej%27_Si_Therd_%28front%29.jpg" },
-    { name: "พระขุนแผน (เขมราช)", url: "https://th.wikipedia.org/wiki/พระขุนแผน", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Khun_Phan_amulet.jpg/220px-Khun_Phan_amulet.jpg" },
-    { name: "หลวงพ่อคูณ ปริสุทโธ", url: "https://th.wikipedia.org/wiki/หลวงพ่อคูณ_ปริสุทโธ", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Luang_Por_Khun_2014.jpg/220px-Luang_Por_Khun_2014.jpg" },
-    { name: "หลวงปู่แหวน สุจิณโณ", url: "https://th.wikipedia.org/wiki/หลวงปู่แหวน_สุจิณโณ", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Luang_Pu_Waen_Sujinno.jpg/200px-Luang_Pu_Waen_Sujinno.jpg" },
-    { name: "พระกรุวัดบ้านกร่าง", url: "#", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Ancient_Thai_Amulets_at_Wat_Rakhang.jpg/220px-Ancient_Thai_Amulets_at_Wat_Rakhang.jpg" },
-    { name: "เหรียญหลวงพ่อรวย", url: "#", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Thai_amulets_at_Wat_Rakhang.jpg/220px-Thai_amulets_at_Wat_Rakhang.jpg" },
-    { name: "พระรอด วัดลำพูน", url: "#", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Phra_Rod_Lamphun.jpg/200px-Phra_Rod_Lamphun.jpg" },
-    { name: "พระซุ้มกอ", url: "#", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Phra_Sumkor.jpg/200px-Phra_Sumkor.jpg" },
-    { name: "พระคง วัดเขาดิน", url: "#", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Phra_Kong_Amulet.jpg/200px-Phra_Kong_Amulet.jpg" },
-    { name: "หลวงปู่มั่น ภูริทัตโต", url: "https://th.wikipedia.org/wiki/หลวงปู่มั่น_ภูริทัตโต", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Luangpu_Mun.jpg/220px-Luangpu_Mun.jpg" },
-    { name: "พระปิดตาหลวงพ่อเปิ่น", url: "#", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Thai_Phra_Pidta.jpg/200px-Thai_Phra_Pidta.jpg" },
-    { name: "พระนาคปรก (หลวงพ่อโสธร)", url: "#", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Naga_prok_Buddha.jpg/220px-Naga_prok_Buddha.jpg" },
-    { name: "เต่าเงิน หลวงปู่ทวด", url: "#", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Luang_Pu_Tuat_statue%2C_Wat_Huai_Mongkol.jpg/220px-Luang_Pu_Tuat_statue%2C_Wat_Huai_Mongkol.jpg" }
-  ];
+/* 🌙 */
+function toggleMode(){
+  document.body.classList.toggle("light");
+}
 
-  // เสริมข้อมูลให้สมบูรณ์: สำหรับพระที่ไม่มี url หรือ img จะใช้ default แทน
-  const defaultImg = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Thai_amulets_at_Wat_Rakhang.jpg/250px-Thai_amulets_at_Wat_Rakhang.jpg";
-  amulets.forEach(item => {
-    if (!item.img || item.img === "") item.img = defaultImg;
-    if (!item.url || item.url === "") item.url = "#";
+/* 🔍 ค้นหา */
+function globalSearch(){
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  const box = document.getElementById("searchResult");
+  const ai = document.getElementById("aiSuggest");
+  box.innerHTML = "";
+  ai.innerHTML = "";
+
+  if(!q) return;
+
+  const found = amulets.filter(a=>a.name.toLowerCase().includes(q));
+
+  if(found.length === 0){
+    speak("เจ้านายครับ ยังไม่มีรายชื่อพระครับเจ้านาย");
+    ai.innerHTML = "🧠 ลองค้นคำใกล้เคียง เช่น พูดชื่อจังหวัด, พระกรุ, ";
+    return;
+  }
+
+  found.forEach(a=>{
+    const div = document.createElement("div");
+    div.className="card";
+    div.innerHTML = `
+      ${a.img ? `<img src="${a.img}">` : ""}
+      <a href="${a.url}" target="_blank">${a.name}</a>
+    `;
+    box.appendChild(div);
   });
 
-  // ฟังก์ชันสลับธีม
-  function toggleMode() {
-    document.body.classList.toggle("light");
-    // เก็บสถานะไว้ localStorage (optional)
-    const isLight = document.body.classList.contains("light");
-    localStorage.setItem("amuletTheme", isLight ? "light" : "dark");
+  ai.innerHTML = "🧠 AI แนะนำ: ลองค้นชื่อพระที่คล้ายกัน";
+}
+
+/* 🔊 พูด */
+function speak(text){
+  const msg = new SpeechSynthesisUtterance(text);
+  msg.lang="th-TH";
+  speechSynthesis.speak(msg);
+}
+
+/* 🎤 เสียง */
+function startVoice(){
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SpeechRecognition){
+    alert("เบราว์เซอร์ไม่รองรับเสียง");
+    return;
   }
 
-  // โหลดธีมที่เคยเลือก
-  const savedTheme = localStorage.getItem("amuletTheme");
-  if (savedTheme === "light") {
-    document.body.classList.add("light");
-  }
+  const rec = new SpeechRecognition();
+  rec.lang="th-TH";
+  rec.start();
 
-  // ฟังก์ชันค้นหาหลัก
-  function globalSearch() {
-    const queryElem = document.getElementById("searchInput");
-    const q = queryElem.value.trim().toLowerCase();
-    const resultDiv = document.getElementById("searchResult");
-    const aiBox = document.getElementById("aiSuggest");
-
-    resultDiv.innerHTML = "";
-    aiBox.innerHTML = "";
-
-    if (q === "") {
-      aiBox.innerHTML = "🧙‍♂️ เจ้าค่ะ! พิมพ์หรือพูดชื่อพระที่สนใจ เพื่อค้นหาพระลึกลับแดนสยาม ✨";
-      return;
-    }
-
-    // ค้นหาข้อมูลที่ชื่อมีคำค้น (รองรับภาษาไทย อังกฤษ)
-    const foundItems = amulets.filter(a => a.name.toLowerCase().includes(q));
-
-    if (foundItems.length === 0) {
-      // ไม่พบพระ
-      const speakText = "เจ้านายครับ ยังไม่มีรายชื่อพระที่ท่านค้นหาครับ กรุณาลองคำอื่น";
-      speak(speakText);
-      aiBox.innerHTML = "🧠 ไม่พบพระเครื่องในฐานข้อมูล ลองเปลี่ยนคำ เช่น 'หลวงปู่', 'สมเด็จ', 'ปิดตา' หรือชื่อจังหวัด/เกจิอาจารย์ดัง";
-      resultDiv.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px;">🔎 ไม่พบพระที่ชื่อ "${queryElem.value}" ในคลังข้อมูลชั่วคราว</div>`;
-      return;
-    }
-
-    // สร้างการ์ดแสดงผล
-    foundItems.forEach(amulet => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <img src="${amulet.img}" alt="${amulet.name}" loading="lazy" onerror="this.src='${defaultImg}'">
-        <a href="${amulet.url}" target="_blank" rel="noopener noreferrer">${amulet.name}</a>
-      `;
-      resultDiv.appendChild(card);
-    });
-
-    // แนะนำเพิ่มเติมแบบสุ่ม หรือ ai hint
-    const randomTip = [
-      "✨ อยากรู้เพิ่ม? ลองค้น 'หลวงปู่ทวด' หรือ 'พระสมเด็จ' ดูสิ", 
-      "🔍 แนะนำ: ใช้เสียงพูดค้นหาสะดวกสุดๆ คลิกปุ่มไมค์", 
-      "🧘 ลองค้นชื่อเกจิชื่อดัง เช่น 'หลวงพ่อคูณ' หรือ 'หลวงปู่มั่น'", 
-      "📜 พระเครื่องแต่ละชนิดมีตำนานล้ำค่า ศึกษาเพิ่มเติมได้จากลิงก์", 
-      "⚜️ คุณสามารถค้นหาด้วยชื่อวัด เช่น 'วัดระฆัง' หรือ 'วัดบางพระ'"
-    ];
-    const randomIdx = Math.floor(Math.random() * randomTip.length);
-    aiBox.innerHTML = `🧙‍♂️ AI แนะนำ: ${randomTip[randomIdx]}<br> 🎯 พบทั้งสิ้น ${foundItems.length} รายการ`;
-  }
-
-  // ฟังก์ชันพูดข้อความ (Text-to-Speech ภาษาไทย)
-  function speak(text) {
-    if (!window.speechSynthesis) {
-      console.warn("เบราว์เซอร์ไม่รองรับ SpeechSynthesis");
-      return;
-    }
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "th-TH";
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-    speechSynthesis.cancel(); // หยุดการพูดค้างก่อน
-    speechSynthesis.speak(utterance);
-  }
-
-  // ฟังก์ชันค้นหาด้วยเสียง (Speech Recognition)
-  function startVoice() {
-    // ตรวจสอบความเข้ากันได้
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      alert("เบราว์เซอร์นี้ไม่รองรับการรู้จำเสียง กรุณาใช้ Google Chrome หรือ Edge แทนครับ");
-      speak("ขออภัย เบราว์เซอร์ไม่รองรับการค้นหาด้วยเสียง");
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = "th-TH";
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    // แจ้งผู้ใช้
-    const aiBox = document.getElementById("aiSuggest");
-    aiBox.innerHTML = "🎤 กำลังฟังเสียง กรุณาพูดชื่อพระที่ต้องการ... (พูดชัดๆ)";
-    
-    recognition.start();
-
-    recognition.onresult = (event) => {
-      let spokenText = event.results[0][0].transcript;
-      // ตัดคำนำหน้าเช่น "ค้นหา" , "หาพระ" , "หาหน่อย"
-      spokenText = spokenText.replace(/^(ค้นหา|หาพระ|ช่วยหา|หาหน่อย|เอาหน่อย|เอา)/gi, "").trim();
-      if (spokenText === "") {
-        spokenText = event.results[0][0].transcript;
-      }
-      const searchInput = document.getElementById("searchInput");
-      searchInput.value = spokenText;
-      // ค้นหาทันที
-      globalSearch();
-      // พูดแจ้งผล
-      const foundCount = document.getElementById("searchResult").children.length;
-      if (foundCount > 0) {
-        speak(`พบข้อมูลพระ ${spokenText} จำนวน ${foundCount} รายการ`);
-      } else {
-        speak(`ไม่พบข้อมูล ${spokenText} กรุณาลองใหม่`);
-      }
-    };
-
-    recognition.onerror = (err) => {
-      console.error("Speech error: ", err);
-      let errorMsg = "ไม่สามารถจับเสียงได้ กรุณาลองอีกครั้ง หรือพิมพ์ค้นหา";
-      if (err.error === "no-speech") errorMsg = "ไม่พบเสียงพูด กรุณากดไมค์แล้วพูดชื่อพระ";
-      else if (err.error === "audio-capture") errorMsg = "ไมโครโฟนไม่พร้อมใช้งาน อนุญาตไมค์ก่อนครับ";
-      document.getElementById("aiSuggest").innerHTML = `⚠️ ${errorMsg}`;
-      speak(errorMsg);
-    };
-
-    recognition.onend = () => {
-      // optional: ทำการ clean ui
-      if (document.getElementById("aiSuggest").innerHTML.includes("กำลังฟังเสียง")) {
-        setTimeout(() => {
-          if (document.getElementById("aiSuggest").innerHTML.includes("กำลังฟังเสียง"))
-            document.getElementById("aiSuggest").innerHTML = "🧙‍♂️ พร้อมค้นหา พิมพ์หรือกดไมค์ได้เลย";
-        }, 1000);
-      }
-    };
-  }
-
-  // เสริม: ฟังก์ชันเริ่มต้น แนะนำคำค้นเมื่อโหลดหน้า
-  window.onload = () => {
-    // ใส่คำใบ้เริ่มต้นใน AI box
-    document.getElementById("aiSuggest").innerHTML = "🧙‍♂️  ยินดีต้อนรับสู่พระลึกลับแดนสยาม! พิมพ์หรือพูดชื่อพระดัง ๆ เช่น 'หลวงปู่ทวด', 'พระสมเด็จ' เพื่อสำรวจคลังข้อมูลพระเครื่องอันศักดิ์สิทธิ์";
-    // กรณีมีค่า search อยู่แล้ว
-    const searchVal = document.getElementById("searchInput").value;
-    if (searchVal !== "") globalSearch();
+  rec.onresult = e=>{
+    let text = e.results[0][0].transcript;
+    text = text.replace("ค้นหา","").trim();
+    document.getElementById("searchInput").value = text;
+    globalSearch();
   };
-
-  // รองรับการกด Enter บนช่องค้นหา
-  document.getElementById("searchInput").addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      globalSearch();
-    }
-  });
-
-  // ฟังก์ชันช่วยเหลือ: ถ้ารูปภาพโหลดไม่สำเร็จให้ใช้ default
-  document.addEventListener("DOMContentLoaded", () => {
-    // ใส่ event delegation สำหรับรูปที่โหลดไม่ผ่าน (dynamic)
-    document.body.addEventListener("error", (e) => {
-      if (e.target.tagName === "IMG") {
-        e.target.src = defaultImg;
-      }
-    }, true);
-  });
+}
 </script>
+
 </body>
 </html>
+
